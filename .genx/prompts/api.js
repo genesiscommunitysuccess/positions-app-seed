@@ -14,6 +14,7 @@ module.exports = async (inquirer, prevAns = {}) => {
       type: 'confirm',
       message: 'Set API Host',
       default: true,
+      when: !prevAns.apiHost,
     },
     {
       name: 'apiHost',

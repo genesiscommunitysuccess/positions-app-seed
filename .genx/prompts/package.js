@@ -1,11 +1,11 @@
 const {npmPackageValidator, safeName} = require('./validators');
-const {scopedPackageInto} = require('./messages');
+const {scopedPackageIntro} = require('./messages');
 
 module.exports = async (inquirer, prevAns = {}) => {
-  scopedPackageInto('genesislcap', 'some-app');
+  scopedPackageIntro('genesislcap', 'some-app');
   const {
     pkgScope = prevAns.pkgScope,
-    pkgName = prevAns.pkgName,
+    pkgName = prevAns.pkgName || prevAns.appName,
   } = await inquirer.prompt([
     {
       name: 'pkgScope',
@@ -19,7 +19,8 @@ module.exports = async (inquirer, prevAns = {}) => {
       name: 'pkgName',
       type: 'input',
       message: 'Package name',
-      when: !prevAns.pkgName,
+      when: !prevAns.pkgName && !prevAns.appName,
+      default: prevAns.pkgName || prevAns.appName,
       validate: npmPackageValidator,
     },
   ]);

@@ -5,7 +5,7 @@
 /**
  * TODO: Revisit these exports in the cli
  */
-const {dsInto, scopedPackageInto} = require('@genesislcap/foundation-cli/dist/plop/messages');
+const {dsIntro, scopedPackageIntro} = require('@genesislcap/foundation-cli/dist/plop/messages');
 const {Code, Text} = require('@genesislcap/foundation-cli/dist/plop/messages/color');
 const {createLink} = require('@genesislcap/foundation-cli/dist/plop/messages/link');
 const {summary} = require('../details');
@@ -31,9 +31,9 @@ module.exports = {
   Text,
   createLink,
   almostThere,
-  dsInto,
+  dsIntro,
   inputStepThanks,
   lastBits,
-  scopedPackageInto,
+  scopedPackageIntro,
   seedSelection,
 }

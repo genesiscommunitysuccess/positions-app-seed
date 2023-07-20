@@ -4,6 +4,22 @@ This project has been created from the Genesis Positions Application Seed. Our s
 their projects. Each seed adheres to strict Genesis best practices, and has passed numerous performance, compliance and
 accessibility checks. 
 
+{{!
+
+# Testing
+
+To quickly test this seed, run:
+
+```
+npx -y @genesislcap/genx@latest init positionsapp -s positions-app-seed -x
+```
+
+This will apply default prompt values. To provide custom prompt answers, omit the `-x`.
+
+Local `positions-app-seed` folder will be used, if available. To only use remote version, pass `--remote`.
+
+}}
+
 # Introduction
 
 ## Next Steps
