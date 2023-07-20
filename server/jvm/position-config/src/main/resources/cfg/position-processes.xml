@@ -1,0 +1,99 @@
+<!--
+!
+!   System              : position
+!   Sub-System          : position Configuration
+!   Version             : 1.0
+!   Copyright           : (c) GENESIS
+!   Date                : 2021-09-07
+!
+!   Function : Provide Process Config details for position.
+!
+!   Modification History
+!
+-->
+<processes>
+  <process name="POSITION_DATASERVER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx1024m -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-dataserver</module>
+    <package>global.genesis.dataserver.pal</package>
+    <script>position-dataserver.kts</script>
+    <description>Displays real-time details</description>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_REQUEST_SERVER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx256m -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-requestserver</module>
+    <package>global.genesis.requestreply.pal</package>
+    <script>position-reqrep.kts</script>
+    <description>Server one-shot requests for details</description>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_EVENT_HANDLER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx256m -DRedirectStreamsToLog=true -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-eventhandler</module>
+    <package>global.genesis.eventhandler.pal</package>
+    <script>position-eventhandler.kts</script>
+    <description>Handles events</description>
+    <classpath>position-messages*,position-eventhandler*</classpath>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_CONSOLIDATOR">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx256m -DRedirectStreamsToLog=true -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-consolidator</module>
+    <package>global.genesis.pal.consolidator</package>
+    <script>position-consolidator.kts</script>
+    <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_FGW">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx128m -DXSD_VALIDATE=false</options>
+    <module>fix-eventhandler</module>
+    <package>global.genesis.fix.eventhandler</package>
+    <config>position-fgw.xml</config>
+    <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    <description>FIX Drop Copy Gateway</description>
+  </process>
+  <process name="POSITION_FGW_STREAMER">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx128m -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-streamer</module>
+    <package>global.genesis.streamer.pal</package>
+    <script>position-fgw-streamer.kts</script>
+    <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_FGW_STREAMER_CLIENT">
+    <groupId>POSITION</groupId>
+    <start>true</start>
+    <options>-Xmx128m -DXSD_VALIDATE=false</options>
+    <module>genesis-pal-streamerclient</module>
+    <package>global.genesis.streamerclient.pal</package>
+    <script>position-fgw-streamer-client.kts</script>
+    <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    <classpath>fix-xlator*,FIX44_ref*</classpath>
+    <language>pal</language>
+  </process>
+  <process name="POSITION_DATA_PIPELINE">
+      <groupId>POSITION</groupId>
+      <start>true</start>
+      <options>-Xmx256m -DRedirectStreamsToLog=true -DXSD_VALIDATE=false -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+      </options>
+      <module>genesis-pal-datapipeline</module>
+      <package>global.genesis.datapipeline.pal</package>
+      <script>position-data-pipeline.kts</script>
+      <description>data pieplines in and out</description>
+      <language>pal</language>
+    <loggingLevel>TRACE,DATADUMP_OFF</loggingLevel>
+  </process>
+</processes>

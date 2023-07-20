@@ -1,0 +1,44 @@
+<!--
+!
+!   System              : GENESIS Business Library
+!   Sub-System          : MARKET_DATA Configuration
+!   Version             : 1.0
+!   Copyright           : (c) GENESIS
+!
+!   Function : Provide Process Definition related to MARKET_DATA.
+!
+!   Modification History
+!
+-->
+<processes>
+    <process name="MARKET_DATA_EVENT_HANDLER">
+        <start>true</start>
+        <options>-Xmx256m -DXSD_VALIDATE=false</options>
+        <module>market-data-eventhandler</module>
+        <package>global.genesis.marketdata</package>
+        <groupId>MARKET_DATA</groupId>
+        <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    </process>
+    <process name="MARKET_DATA_DATASERVER">
+        <start>false</start>
+        <options>-Xmx256m -DXSD_VALIDATE=false</options>
+        <module>dataserver</module>
+        <package>global.genesis.dataserver</package>
+        <config>market-data-dataserver.xml</config>
+        <joinPub>market-data-joiner.xml</joinPub>
+        <groupId>MARKET_DATA</groupId>
+        <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+    </process>
+    <process name="MARKET_DATA_PUBLISHER">
+        <start>false</start>
+        <options>-Xmx256m -DXSD_VALIDATE=false</options>
+        <module>publisher</module>
+        <package>global.genesis.publisher</package>
+        <config>market-data-publisher.xml</config>
+        <joinPub>market-data-joiner.xml</joinPub>
+        <groupId>MARKET_DATA</groupId>
+        <loggingLevel>INFO,DATADUMP_OFF</loggingLevel>
+        <description>Realtime resource stream for market data</description>
+    </process>
+</processes>
+

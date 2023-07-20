@@ -1,0 +1,11 @@
+{
+  "name": "@genesislcap/positions-app-seed",
+  "description": "Position app seed",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@genesislcap/foundation-cli": "^14.61.1",
+    "yargs-parser": "^20.2.7"
+  }
+}

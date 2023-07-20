@@ -1,0 +1,3 @@
+GATEWAY_ID,GATEWAY_TYPE,GATEWAY_VALUE,INCOMING_TOPIC
+"EmailDistribution1","EmailDistribution","{ \"emailDistribution\" : { \"to\" : ["dev-training@freesmtpserver.com"], \"cc\" : [ ], \"bcc\" : [ ] } }",
+"GenesisScreen1","GenesisScreen","JaneDee",

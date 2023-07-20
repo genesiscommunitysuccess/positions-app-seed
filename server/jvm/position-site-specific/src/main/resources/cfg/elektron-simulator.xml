@@ -1,0 +1,46 @@
+<elektronSimulator>
+  <connection>
+    <port>14030</port>
+    <dictionaryFile>${env:GENESIS_HOME}/generated/cfg/RDMFieldDictionary</dictionaryFile>
+    <enumTypeDefFile>${env:GENESIS_HOME}/generated/cfg/enumtype.def</enumTypeDefFile>
+    <publicationInterval>1000</publicationInterval>
+  </connection>
+  <defaultInstrument>
+    <basePrice>1000</basePrice>
+    <waveAmplitude>100</waveAmplitude>
+    <spread>2</spread>
+    <exponent>-2</exponent>
+  </defaultInstrument>
+  <instruments>
+    <instrument name="AZN.L">
+      <basePrice>8671</basePrice>
+      <waveAmplitude>50</waveAmplitude>
+      <spread>10</spread>
+      <exponent>-1</exponent>
+    </instrument>
+    <instrument name="BP.L">
+      <basePrice>392</basePrice>
+      <waveAmplitude>50</waveAmplitude>
+      <spread>10</spread>
+      <exponent>-1</exponent>
+    </instrument>
+    <instrument name="LLOY.L">
+      <basePrice>56</basePrice>
+      <waveAmplitude>50</waveAmplitude>
+      <spread>10</spread>
+      <exponent>-1</exponent>
+    </instrument>
+    <instrument name="LSEG.L">
+      <basePrice>7448</basePrice>
+      <waveAmplitude>50</waveAmplitude>
+      <spread>10</spread>
+      <exponent>-1</exponent>
+    </instrument>
+    <instrument name="VOD.L">
+      <basePrice>120</basePrice>
+      <waveAmplitude>50</waveAmplitude>
+      <spread>10</spread>
+      <exponent>-1</exponent>
+    </instrument>
+  </instruments>
+</elektronSimulator>

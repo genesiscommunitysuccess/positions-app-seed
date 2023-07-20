@@ -1,0 +1,41 @@
+<fixConnection>
+    <quickFixConfig path="${env:GENESIS_HOME}/generated/cfg/position-quickfix.cfg" />
+    <fileLogPath path="${env:GENESIS_HOME}/runtime/logs/" />
+
+    <serviceName>DROPCOPY</serviceName>
+
+    <connectionDetails>
+
+        <!--connectionType>CLIENT</connectionType-->
+        <connectionType>SERVER</connectionType>
+
+        <!-- Target address valid for connection type of Client only-->
+        <!--targetAddresses>
+            <targetAddress>127.0.0.1:9092</targetAddress>
+        </targetAddresses-->>
+
+        <port>9092</port>
+
+
+        <!-- Our system -->
+        <senderId>GENESIS</senderId>
+        <!-- Their system -->
+        <targetId>CLIENT</targetId>
+
+        <FIXVersion>FIX.4.4</FIXVersion>
+
+        <!-- Connections will only be reported as DOWN outside of these times -->
+        <connectAt>00:00:00</connectAt>
+        <disconnectAt>23:59:00</disconnectAt>
+
+    </connectionDetails>
+
+    <!-- Set raw FIX fields before message is sent -->
+    <customFieldsOutbound>
+        <![CDATA[
+
+        ]]>
+    </customFieldsOutbound>
+
+
+</fixConnection>

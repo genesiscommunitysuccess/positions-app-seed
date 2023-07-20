@@ -1,0 +1,63 @@
+services:
+  database:
+    command: [ "postgres", "-c", "wal_level=logical" ]
+    hostname: postgres-db
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Bootboot1
+    networks:
+      - genesis-postgres
+
+  position-remap:
+    image: genesis/position:1.0.0-SNAPSHOT
+    environment:
+      DB_LAYER: SQL
+      DB_HOST: jdbc:postgresql://postgres-db:5432/?user=postgres&password=Bootboot1
+      GENESIS_DB_INSTALL: "true"
+      DB_SQL_CONNECTION_POOL_SIZE: 3
+    networks:
+      - genesis-postgres
+    depends_on:
+      database:
+        condition: service_started
+
+  position-data:
+    image: genesisglobal-docker-internal.jfrog.io/position:1.0.0-SNAPSHOT
+    environment:
+      DB_LAYER: SQL
+      DB_HOST: jdbc:postgresql://postgres-db:5432/?user=postgres&password=Bootboot1
+      GENESIS_DB_INSTALL: "true"
+      DB_SQL_CONNECTION_POOL_SIZE: 3
+    working_dir: /app/run/site-specific/data
+    command: bash -c 'source ~/.bashrc && yes | JvmRun global.genesis.environment.scripts.SendTable -a'
+    networks:
+      - genesis-postgres
+    depends_on:
+      position-remap:
+        condition: service_completed_successfully
+
+  position-app:
+    container_name: position-app
+    image: genesis/position:1.0.0-SNAPSHOT
+    ports:
+            - 443:443
+            - 8080:8080
+            - 22:22
+            - 4569:4569
+    environment:
+      DB_LAYER: SQL
+      DB_HOST: jdbc:postgresql://postgres-db:5432/?user=postgres&password=Bootboot1
+      DB_SQL_CONNECTION_POOL_SIZE: 3
+    networks:
+      - genesis-postgres
+    depends_on:
+      position-data:
+        condition: service_completed_successfully
+    stop_grace_period: 1m
+
+networks:
+  genesis-postgres: {
+      driver: bridge
+  }
