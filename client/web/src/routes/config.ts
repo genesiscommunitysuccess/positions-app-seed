@@ -15,26 +15,26 @@ import { Analytics } from './analytics/analytics';
 import { NotFound } from './not-found/not-found';
 import { Extras } from './extras/extras';
 import { Reporting } from '@genesislcap/foundation-reporting';
-import { Alerts } from './alerts/alerts';
-
-type RouteSettings = {
-  public?: boolean;
-  foo?: string;
-};
 
 export class MainRouterConfig extends RouterConfiguration<any> {
   constructor(
     @Auth private auth: Auth,
     @Container private container: Container,
     @FoundationAnalytics private analytics: FoundationAnalytics,
-    @Session private session: Session
+    @Session private session: Session,
   ) {
     super();
   }
 
   public allRoutes = [
     { index: 1, path: 'protected', title: 'Home', icon: 'home', variant: 'solid' },
-    { index: 2, path: 'alerts', title: 'Alerts', icon: 'cog', variant: 'solid' },
+    {
+      index: 2,
+      path: 'notification-dashboard',
+      title: 'Notifications',
+      icon: 'bell',
+      variant: 'solid',
+    },
     // { index: 3, path: 'analytics', title: 'Analytics', icon: 'cog', variant: 'solid' },
     // { index: 4, path: 'extras', title: 'Extras', icon: 'cog', variant: 'solid' },
     // { index: 6, path: 'admin', title: 'Admin', icon: 'cog', variant: 'solid' },
@@ -72,18 +72,24 @@ export class MainRouterConfig extends RouterConfiguration<any> {
       },
       { path: 'admin', element: Users, title: 'Admin', name: 'admin' },
       { path: 'protected', element: Home, title: 'Home', name: 'protected' },
-      { path: 'alerts', element: Alerts, title: 'Alerts', name: 'alerts' },
+      {
+        path: 'notification-dashboard',
+        element: async () =>
+          (await import('@genesislcap/foundation-notification-dashboard')).NotificationDashboard,
+        title: 'Notifications Dashboard',
+        name: 'notification-dashboard',
+      },
       { path: 'analytics', element: Analytics, title: 'Analytics', name: 'analytics' },
       { path: 'not-found', element: NotFound, title: 'Not Found', name: 'not-found' },
       { path: 'extras', element: Extras, title: 'Extras', name: 'extras' },
-      { path: 'reporting', element: Reporting, title: 'Reporting', name: 'reporting' }
+      { path: 'reporting', element: Reporting, title: 'Reporting', name: 'reporting' },
     );
 
     /**
      * Example of a FallbackRouteDefinition
      */
     this.routes.fallback(() =>
-      this.auth.isLoggedIn ? { redirect: 'not-found' } : { redirect: 'login' }
+      this.auth.isLoggedIn ? { redirect: 'not-found' } : { redirect: 'login' },
     );
 
     /**

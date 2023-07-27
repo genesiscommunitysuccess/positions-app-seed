@@ -1,5 +1,8 @@
 import { css, html, repeat } from '@microsoft/fast-element';
 import { FASTElementLayout } from '@microsoft/fast-router';
+import { NOTIFICATIONS_EVENTS } from '../../store';
+import { Flyout } from '@genesislcap/foundation-ui';
+import { ToastButton } from '@genesislcap/foundation-notifications';
 
 const baseLayoutCss = css`
   .container {
@@ -26,7 +29,7 @@ export const loginLayout = new FASTElementLayout(
       </div>
     </div>
   `,
-  baseLayoutCss
+  baseLayoutCss,
 );
 
 export const defaultLayout = new FASTElementLayout(
@@ -36,6 +39,8 @@ export const defaultLayout = new FASTElementLayout(
         show-luminance-toggle-button
         show-misc-toggle-button
         show-notification-button
+        @notification-icon-clicked=${(x) =>
+          x.$emit(NOTIFICATIONS_EVENTS.EVENT_CHANGE_INBOX_DISPLAY, true)}
       >
         <div slot="routes" class="routes">
           ${repeat(
@@ -49,7 +54,7 @@ export const defaultLayout = new FASTElementLayout(
                 <zero-icon variant="${(x) => x.variant}" name="${(x) => x.icon}"></zero-icon>
                 ${(x) => x.title}
               </zero-button>
-            `
+            `,
           )}
         </div>
         <div slot="menu-contents">
@@ -63,10 +68,23 @@ export const defaultLayout = new FASTElementLayout(
             Reset Layout
           </zero-button>
         </div>
+        <foundation-inbox-counter slot="notifications-icon-end"></foundation-inbox-counter>
       </foundation-header>
-      <div class="content">
-        <slot></slot>
-      </div>
+      <zero-flyout
+        position="right"
+        @closed=${(x) => x.$emit(NOTIFICATIONS_EVENTS.EVENT_CHANGE_INBOX_DISPLAY, false)}
+        closed=${(x) => !x.store.inboxDisplayState}
+        displayHeader=${false}
+      >
+        <foundation-inbox
+          @close=${(ignore, c) => (<Flyout>(<HTMLElement>c.event.target).parentNode).closeFlyout()}
+        ></foundation-inbox>
+      </zero-flyout>
+      <zero-notification-listener resource-name="ALL_NOTIFY_ALERT_RECORDS">
+        <div class="content">
+          <slot></slot>
+        </div>
+      </zero-notification-listener>
     </div>
   `,
   css`
@@ -95,5 +113,27 @@ export const defaultLayout = new FASTElementLayout(
     .content {
       top: var(--nav-height);
     }
-  `
+
+    foundation-header::part(notifications-button) {
+      position: relative;
+    }
+
+    foundation-inbox-counter {
+      z-index: 999;
+      position: absolute;
+      top: 29px;
+      right: 0;
+      pointer-events: none;
+    }
+
+    zero-flyout::part(flyout) {
+      width: 40%;
+      min-width: 320px;
+      padding: 0;
+    }
+
+    zero-flyout::part(content) {
+      height: 100%;
+    }
+  `,
 );
