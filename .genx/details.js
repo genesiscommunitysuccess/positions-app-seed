@@ -7,10 +7,16 @@ const summary = `
   License: ${license}
 `;
 
+const nextStepsMessage = `
+ > Install dependencies with \`npm run bootstrap\`\n
+ > Start development server with \`npm run dev\`
+`;
+
 module.exports = {
   description,
   license,
   name,
   summary,
   version,
+  nextStepsMessage,
 }
