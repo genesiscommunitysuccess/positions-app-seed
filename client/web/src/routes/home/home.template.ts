@@ -24,10 +24,6 @@ const toolbarOptions: CriteriaSegmentedControlOption[] = [
 
 export const HomeTemplate = html<Home>`
   <template>
-    <zero-error-boundary>
-      <genesis-notification></genesis-notification>
-    </zero-error-boundary>
-
     <zero-modal
       ${ref('addTradeModal')}
       position="right"

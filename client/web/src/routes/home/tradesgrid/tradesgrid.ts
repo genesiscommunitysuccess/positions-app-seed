@@ -17,6 +17,7 @@ export class TradesGrid extends EventEmitter<EventMap>(FASTElement) {
   @Store store: Store;
   public tradeGrid!: ZeroGridPro;
   public tradesDatasource!: GridProGenesisDatasource;
+  tradesGridTemplate: HTMLElement;
   @Connect connect: Connect;
 
   private sources: Map<string, GridProGenesisDatasource> = new Map<
@@ -30,8 +31,8 @@ export class TradesGrid extends EventEmitter<EventMap>(FASTElement) {
     this.tradeGrid?.addEventListener('onGridReady', this.handleTradeGridReady);
     this.sources.set('tradesDatasource', this.tradesDatasource);
 
-    this.addEventListener('filter-changed', this.handleFilterChanged);
-    this.addEventListener('filter-cleared', this.handleFilterCleared);
+    this.tradesGridTemplate.addEventListener('filter-changed', this.handleFilterChanged);
+    this.tradesGridTemplate.addEventListener('filter-cleared', this.handleFilterCleared);
   }
 
   disconnectedCallback() {
@@ -42,8 +43,8 @@ export class TradesGrid extends EventEmitter<EventMap>(FASTElement) {
       this.handleTradeGridFirstRendered
     );
 
-    this.removeEventListener('filter-changed', this.handleFilterChanged);
-    this.removeEventListener('filter-cleared', this.handleFilterCleared);
+    this.tradesGridTemplate.removeEventListener('filter-changed', this.handleFilterChanged);
+    this.tradesGridTemplate.removeEventListener('filter-cleared', this.handleFilterCleared);
   }
 
   handleTradeGridFirstRendered = () => {

@@ -3,7 +3,7 @@ import { positionColumnDefs } from '../positionColumnDefs';
 import { PositionsGrid } from './positionsgrid';
 
 export const positionsGridTemplate = html<PositionsGrid>`
-  <template>
+  <template ${ref('positionsGridTemplate')}>
     <zero-card class="positions-card">
       <zero-filter-bar
         resource="ALL_POSITIONS"
@@ -24,7 +24,7 @@ export const positionsGridTemplate = html<PositionsGrid>`
           () => positionColumnDefs,
           html`
             <grid-pro-column :definition="${(x) => x}" />
-          `
+          `,
         )}
         <grid-pro-column :definition="${(x) => x.singlePositionActionColDef}" />
       </zero-grid-pro>

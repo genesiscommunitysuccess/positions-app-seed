@@ -27,5 +27,9 @@ export const LoadingTemplate = html<MainApplication>`
 `;
 
 export const MainTemplate = html<MainApplication>`
-  <fast-router :config=${(x) => x.config} :navigation=${(x) => x.navigation}></fast-router>
+  <fast-router
+    :config=${(x) => x.config}
+    :navigation=${(x) => x.navigation}
+    :store=${(x) => x.store}
+  ></fast-router>
 `;

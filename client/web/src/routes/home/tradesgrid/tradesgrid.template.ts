@@ -4,7 +4,7 @@ import { tradesGridStyles } from '../trades-grid.styles';
 import { TradesGrid } from './tradesgrid';
 
 export const tradesGridTemplate = html<TradesGrid>`
-  <template>
+  <template ${ref('tradesGridTemplate')}>
     <zero-card class="trades-card">
       <zero-filter-bar
         resource="ALL_TRADES"

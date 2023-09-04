@@ -7,10 +7,10 @@ import { ModuleRegistry } from '@ag-grid-community/core';
 import { LicenseManager } from '@ag-grid-enterprise/core';
 import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { EntityManagement } from '@genesislcap/foundation-entity-management';
-import { GenesisNotifications } from '../routes/alerts/genesis-notifications';
 import { Filters, Form } from '@genesislcap/foundation-forms';
 import { foundationLayoutComponents } from '@genesislcap/foundation-layout';
 import { CriteriaSegmentedControl } from '@genesislcap/foundation-criteria';
+import { FoundationInbox } from '@genesislcap/foundation-inbox';
 
 const licenseKey =
   'CompanyName=GENESIS GLOBAL TECHNOLOGY LIMITED,LicensedGroup=Genesis Web,LicenseType=MultipleApplications,LicensedConcurrentDeveloperCount=3,LicensedProductionInstancesCount=4,AssetReference=AG-022858,ExpiryDate=8_January_2023_[v2]_MTY3MzEzNjAwMDAwMA==226d559d73e979c636d5f08eaa790ea8';
@@ -21,16 +21,16 @@ provideFASTDesignSystem().register(allComponents);
 provideDesignSystem().register(
   zeroGridComponents,
   g2plotChartsComponents,
-  foundationLayoutComponents
+  foundationLayoutComponents,
 );
 
 FlexLayout;
 ErrorBoundary;
-GenesisNotifications;
 EntityManagement;
 Form;
 Filters;
 CriteriaSegmentedControl;
+FoundationInbox;
 
 enum ResourceType {
   local = 'local',

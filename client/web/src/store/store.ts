@@ -37,9 +37,12 @@ export enum MISC_EVENTS {
   EVENT_SIDE_NAV = 'side-nav-toggle',
 }
 
+export enum NOTIFICATIONS_EVENTS {
+  EVENT_CHANGE_INBOX_DISPLAY = 'change-inbox-display',
+}
+
 export enum TRADE_EVENTS {
   EVENT_SET_ADD_TRADES = 'edit-add-trade',
-
 }
 
 export type StoreEventDetailMap = StoreRootEventDetailMap & {
@@ -48,6 +51,7 @@ export type StoreEventDetailMap = StoreRootEventDetailMap & {
   [TRADE_EVENTS.EVENT_SET_ADD_TRADES]: any;
   [INSTRUMENT_EVENTS.EVENT_POSITIONS_FILTERS_CHANGE]: any;
   [INSTRUMENT_EVENTS.EVENT_SEGMENTED_SELECTED_INSTRUMENT_CHANGE]: any;
+  [NOTIFICATIONS_EVENTS.EVENT_CHANGE_INBOX_DISPLAY]: string;
 };
 
 declare global {
@@ -62,6 +66,7 @@ class DefaultStore extends AbstractStoreRoot<Store, StoreEventDetailMap> impleme
   @observable selectedInstrumentId: string;
   @observable sideNavClosed: boolean = true;
   @observable addTradeData: any = {};
+  @observable inboxDisplayState = false;
 
   constructor() {
     super();
@@ -97,12 +102,12 @@ class DefaultStore extends AbstractStoreRoot<Store, StoreEventDetailMap> impleme
 
         this.tradesFilterCriteria = criteriaBuilder()
           .withExpression(
-            expressionBuilder('INSTRUMENT_NAME', instrument.INSTRUMENT_NAME, Serialisers.EQ)
+            expressionBuilder('INSTRUMENT_NAME', instrument.INSTRUMENT_NAME, Serialisers.EQ),
           )
           .build();
         this.pieChartFilterCriteria = criteriaBuilder()
           .withExpression(
-            expressionBuilder('INSTRUMENT_ID', instrument.INSTRUMENT_ID, Serialisers.EQ)
+            expressionBuilder('INSTRUMENT_ID', instrument.INSTRUMENT_ID, Serialisers.EQ),
           )
           .build();
         this.lineChartFilterCriteria = criteriaBuilder()
@@ -113,7 +118,7 @@ class DefaultStore extends AbstractStoreRoot<Store, StoreEventDetailMap> impleme
           ])
           .build();
         this.selectedInstrumentId = instrument.INSTRUMENT_ID;
-      }
+      },
     );
 
     this.createListener<string>(
@@ -130,7 +135,7 @@ class DefaultStore extends AbstractStoreRoot<Store, StoreEventDetailMap> impleme
         this.tradesFilterCriteria = criteria;
         this.pieChartFilterCriteria = criteria;
         this.lineChartFilterCriteria = criteria;
-      }
+      },
     );
 
     this.createListener<string>(
@@ -141,7 +146,14 @@ class DefaultStore extends AbstractStoreRoot<Store, StoreEventDetailMap> impleme
           return;
         }
         this.positionsFilterCriteria = criteria;
-      }
+      },
+    );
+
+    this.createListener<any>(
+      NOTIFICATIONS_EVENTS.EVENT_CHANGE_INBOX_DISPLAY,
+      (displayState: boolean) => {
+        this.inboxDisplayState = displayState;
+      },
     );
   }
 }
