@@ -26,6 +26,7 @@ export class PositionsGrid extends EventEmitter<EventMap>(FASTElement) {
   @Store store: Store;
   public positionsGrid!: ZeroGridPro;
   public positionsDatasource!: GridProGenesisDatasource;
+  positionsGridTemplate: HTMLElement
 
   private sources: Map<string, GridProGenesisDatasource> = new Map<
     string,
@@ -56,14 +57,14 @@ export class PositionsGrid extends EventEmitter<EventMap>(FASTElement) {
         });
       });
 
-    this.addEventListener('filter-changed', this.handleFilterChanged);
-    this.addEventListener('filter-cleared', this.handleFilterCleared);
+    this.positionsGridTemplate.addEventListener('filter-changed', this.handleFilterChanged);
+    this.positionsGridTemplate.addEventListener('filter-cleared', this.handleFilterCleared);
     this.sources.set('positionsDatasource', this.positionsDatasource);
   }
 
   public disconnectedCallback(): void {
-    this.removeEventListener('filter-changed', this.handleFilterChanged);
-    this.removeEventListener('filter-cleared', this.handleFilterCleared);
+    this.positionsGridTemplate.removeEventListener('filter-changed', this.handleFilterChanged);
+    this.positionsGridTemplate.removeEventListener('filter-cleared', this.handleFilterCleared);
     this.positionGridPaginationSubscription.unsubscribe();
   }
 
