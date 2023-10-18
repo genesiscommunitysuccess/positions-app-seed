@@ -44,9 +44,4 @@ include("position-dictionary-cache:position-generated-hft")
 include("position-dictionary-cache:position-generated-view")
 include("position-site-specific")
 include("position-samples")
-includeBuild("../../client") {
-  dependencySubstitution {
-    substitute(module("client:web"))
-      .using(project(":web"))
-  }
-}
+includeBuild("../../client")
