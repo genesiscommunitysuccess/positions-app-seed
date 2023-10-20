@@ -1,11 +1,40 @@
 {
-  "name": "@genesislcap/positions-app-seed",
+  "name": "@genesiscommunitysuccess/positions-app-seed",
   "description": "Position app seed",
-  "version": "0.0.1",
-  "private": true,
+  "version": "1.0.0",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "@genesislcap/foundation-cli": "^14.61.1",
-    "yargs-parser": "^20.2.7"
+  "scripts": {},
+  "devDependencies": {},
+  "genxSeedConfig": {
+    "persistAnswers": true,
+    "processFiles": {
+      "exclude": [
+        ".git",
+        ".genx",
+        "node_modules",
+        ".gradle",
+        "gradle"
+      ],
+      "rename": true,
+      "interpolateVariables": {
+        "enabled": true,
+        "include": [
+          "Dockerfile",
+          "product-info",
+          ".yml",
+          ".sh",
+          ".csv",
+          ".json",
+          ".js",
+          ".kt",
+          ".kts",
+          ".ts",
+          ".md",
+          ".properties",
+          ".html",
+          ".xml"
+        ]
+      }
+    }
   }
 }

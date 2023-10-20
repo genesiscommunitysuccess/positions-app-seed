@@ -22,7 +22,7 @@ import { HostENV, HostURL } from '../types';
 import { Store, StoreEventDetailMap } from '../store';
 import { logger } from '../utils';
 
-const name = 'position-app';
+const name = '{{rootElement}}';
 
 export type EventMap = StoreEventDetailMap;
 

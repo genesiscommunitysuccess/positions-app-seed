@@ -1,0 +1,53 @@
+name: Build
+
+on:
+  push:
+    branches: [main, prerelease]
+  pull_request:
+    branches: [main, prerelease]
+  workflow_dispatch:
+
+jobs:
+  build:
+    env:
+      genesisArtifactoryUser: ${{ secrets.JFROG_LIBS_RELEASE_CLIENT_RO_USER }}
+      genesisArtifactoryPassword: ${{ secrets.JFROG_LIBS_RELEASE_CLIENT_RO_PASSWORD }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - uses: KengoTODA/actions-setup-docker-compose@main
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Configure Gradle
+        run: ./.genx/scripts/init-gradle.sh
+
+      - name: Generate sample app
+        working-directory: /tmp
+        run: |
+          SEED_PATH=$(node -p "p=require('node:path');p.relative(process.cwd(),'${{github.workspace}}')")
+          npx -y @genesislcap/genx@latest init positionsapp -x --ref v1.3.0 --no-shell && \
+          npx -y @genesislcap/genx@latest add positionsapp -s "$SEED_PATH"
+
+      - name: Build sample app
+        working-directory: /tmp/positionsapp
+        run: ./gradlew assemble
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-const {description, license, name, version} = require('./package.json');
+const { description, license, name, version } = require("./package.json");
 
 const summary = `
   Name: ${name}
@@ -7,10 +7,7 @@ const summary = `
   License: ${license}
 `;
 
-const nextStepsMessage = `
- > Install dependencies with \`npm run bootstrap\`\n
- > Start development server with \`npm run dev\`
-`;
+const nextStepsMessage = ``;
 
 module.exports = {
   description,
@@ -19,4 +16,4 @@ module.exports = {
   summary,
   version,
   nextStepsMessage,
-}
+};
