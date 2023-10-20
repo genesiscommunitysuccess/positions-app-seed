@@ -1,4 +1,4 @@
-/* public/index.ejs styling */
+/* index.ejs styling */
 
 html,
 body {
@@ -6,6 +6,10 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+}
+
+fast-router {
+  padding-top: 60px;
 }
 
 :not(:defined) {

@@ -43,7 +43,7 @@ if (!sessionStorage.getItem('initSSO')) {
 // If we have initSSO in our sessionStorage, then we load the entire application
 function appendApp() {
   if (sessionStorage.getItem('initSSO')) {
-    const node = document.createElement('position-app');
+    const node = document.createElement('{{rootElement}}');
     document.body.appendChild(node);
   }
 }

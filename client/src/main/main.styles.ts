@@ -1,28 +1,21 @@
 import { css } from '@microsoft/fast-element';
-import { mixinScreen, stylesFontFaces } from '../styles';
+import { stylesFontFaces } from '../styles';
 import './main.css';
 
 export const MainStyles = css`
   ${stylesFontFaces}
   :host {
-    ${mixinScreen()}
+    contain: content;
+
+    --nav-height: 60px;
   }
 
   :host,
   zero-design-system-provider,
-  #dynamic-template,
+  .dynamic-template,
   fast-router {
-    display: block;
+    display: flex;
+    width: 100%;
     height: 100%;
-  }
-
-  zero-design-system-provider {
-    --zero-fill-color: var(--fill-color);
-    --background-color: var(--fill-color);
-  }
-
-  user-management {
-    margin-left: 20px;
-    width: calc(100% - 40px);
   }
 `;

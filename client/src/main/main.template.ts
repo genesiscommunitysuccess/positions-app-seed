@@ -1,35 +1,21 @@
-import { ExecutionContext, html, ref } from '@microsoft/fast-element';
-import { customEvent } from '@genesislcap/foundation-events';
+import { html, ref } from '@microsoft/fast-element';
+import type { ViewTemplate } from '@microsoft/fast-element';
 import type { MainApplication } from './main';
 
-function eventDetail<T = any>(ctx: ExecutionContext) {
-  return (ctx.event as CustomEvent).detail as T;
-}
-
-export const DynamicTemplate = html<MainApplication>`
-  <template
-    ${ref('rootProvider')}
-    @store-connected=${(x, c) => x.store.onConnected(customEvent(c))}
-  >
-    <zero-design-system-provider with-defaults ${ref('provider')}>
-      <div
-        id="dynamic-template"
-        @doing-something=${(x, c) => x.handleDoingSomething(eventDetail(c))}
-      >
-        ${(x) => x.selectTemplate()}
-      </div>
-    </zero-design-system-provider>
-  </template>
+export const DynamicTemplate: ViewTemplate<MainApplication> = html`
+  <zero-design-system-provider ${ref('provider')}>
+    <div class="dynamic-template">${(x) => x.selectTemplate()}</div>
+  </zero-design-system-provider>
 `;
 
-export const LoadingTemplate = html<MainApplication>`
-  ...
+export const LoadingTemplate: ViewTemplate<MainApplication> = html`
+  <zero-progress-ring></zero-progress-ring>
 `;
 
-export const MainTemplate = html<MainApplication>`
+export const MainTemplate: ViewTemplate<MainApplication> = html`
   <fast-router
+    @luminance-icon-clicked=${(x) => x.onDarkModeToggle()}
     :config=${(x) => x.config}
     :navigation=${(x) => x.navigation}
-    :store=${(x) => x.store}
   ></fast-router>
 `;

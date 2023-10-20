@@ -1,1 +1,0 @@
-description = "position-generated-dao"

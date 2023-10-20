@@ -1,18 +1,17 @@
 {
-  "name": "@genesiscommunitysuccess/sample-positions-app",
+  "name": "{{pkgName}}",
   "description": "",
-  "version": "1.0.0",
+  "version": "{{applicationVersionWeb}}",
   "private": true,
   "license": "UNLICENSED",
   "config": {
-    "API_HOST": "ws://localhost/gwf/",
-    "API_HOST_DEV2": "wss://dev-position2/gwf/",
+    "API_HOST": "{{apiHost}}",
     "PORT": 6060,
-    "ENABLE_SSO": false
+    "ENABLE_SSO": {{enableSSO}}
   },
   "genx": {
     "app": {
-      "rootElement": "position-app"
+      "rootElement": "{{rootElement}}"
     },
     "federation": {
       "remotes": [
@@ -28,7 +27,6 @@
     "build:stats": "genx analyze",
     "clean": "genx clean dist node_modules",
     "dev": "genx dev -e API_HOST,ENABLE_SSO",
-    "dev:dev2": "genx dev -e API_HOST=API_HOST_DEV2,ENABLE_SSO",
     "dev:docker": "npm run dev -- --host 0.0.0.0",
     "dev:intellij": "genx dev -e ENABLE_SSO",
     "dev:no-open": "npm run dev -- --no-open",
@@ -66,36 +64,26 @@
   },
   "prettier": "@genesislcap/prettier-config",
   "devDependencies": {
-    "@genesislcap/design-system-configurator": "14.91.1",
-    "@genesislcap/foundation-testing": "14.91.1",
-    "@genesislcap/genx": "14.91.1",
+    "@genesislcap/design-system-configurator": "{{versions.UI}}",
+    "@genesislcap/foundation-testing": "{{versions.UI}}",
+    "@genesislcap/genx": "{{versions.UI}}",
     "husky": "^7.0.4",
     "lint-prepush": "^2.2.1",
     "lint-staged": "^12.4.1"
   },
   "dependencies": {
-    "@ag-grid-enterprise/server-side-row-model": "29.2.0",
-    "@ag-grid-enterprise/core": "29.2.0",
-    "@genesislcap/foundation-comms": "14.91.1",
-    "@genesislcap/foundation-criteria": "14.91.1",
-    "@genesislcap/foundation-entity-management": "14.91.1",
-    "@genesislcap/foundation-errors": "14.91.1",
-    "@genesislcap/foundation-events": "14.91.1",
-    "@genesislcap/foundation-forms": "14.91.1",
-    "@genesislcap/foundation-header": "14.91.1",
-    "@genesislcap/foundation-inbox": "14.91.1",
-    "@genesislcap/foundation-layout": "14.91.1",
-    "@genesislcap/foundation-login": "14.91.1",
-    "@genesislcap/foundation-notification-dashboard": "14.91.1",
-    "@genesislcap/foundation-notifications": "14.91.1",
-    "@genesislcap/foundation-reporting": "14.91.1",
-    "@genesislcap/foundation-store": "14.91.1",
-    "@genesislcap/foundation-ui": "14.91.1",
-    "@genesislcap/foundation-utils": "14.91.1",
-    "@genesislcap/foundation-zero": "14.91.1",
-    "@genesislcap/foundation-zero-grid-pro": "14.91.1",
-    "@genesislcap/g2plot-chart": "14.91.1",
-    "@genesislcap/grid-pro": "14.91.1",
+    "@genesislcap/foundation-comms": "{{versions.UI}}",
+    "@genesislcap/foundation-entity-management": "{{versions.UI}}",
+    "@genesislcap/foundation-forms": "{{versions.UI}}",
+    "@genesislcap/foundation-header": "{{versions.UI}}",
+    "@genesislcap/foundation-inbox": "{{versions.UI}}",
+    "@genesislcap/foundation-layout": "{{versions.UI}}",
+    "@genesislcap/foundation-login": "{{versions.UI}}",
+    "@genesislcap/foundation-ui": "{{versions.UI}}",
+    "@genesislcap/foundation-utils": "{{versions.UI}}",
+    "@genesislcap/foundation-zero": "{{versions.UI}}",
+    "@genesislcap/foundation-zero-grid-pro": "{{versions.UI}}",
+    "@genesislcap/g2plot-chart": "{{versions.UI}}",
     "@microsoft/fast-components": "^2.21.6",
     "@microsoft/fast-element": "^1.7.0",
     "@microsoft/fast-foundation": "^2.33.4",
