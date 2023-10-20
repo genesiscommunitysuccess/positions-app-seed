@@ -11,13 +11,12 @@ accessibility checks.
 To quickly test this seed, run:
 
 ```
-npx -y @genesislcap/genx@latest init positionsapp -s positions-app-seed -x
+npx -y @genesislcap/genx@latest init positionsapp -x --ref v1.3.0 --no-shell && \
+npx -y @genesislcap/genx@latest add positionsapp -s positions-app-seed && \
+./gradlew assemble
 ```
 
-This will apply default prompt values. To provide custom prompt answers, omit the `-x`.
-
 Local `positions-app-seed` folder will be used, if available. To only use remote version, pass `--remote`.
-
 }}
 
 # Introduction
@@ -35,13 +34,9 @@ This project contains **client** and **server/jvm** sub-project which contain re
 The server code for this project can be found [here](./server/jvm/server/README.md).
 It is built using a DSL-like definition based on the Kotlin language: GPAL.
 
-## Clients
+## Web Client
 
-Seeds may provide one or more clients, ie. web, mobile, desktop etc.
-
-### Web Client
-
-The web client for this project can be found [here](./client/web/README.md). It is built using Genesis's next
+The Web client for this project can be found [here](./client/README.md). It is built using Genesis's next
 generation web development framework, which is based on Web Components. Our state-of-the-art design system and component
 set is built on top of [Microsoft FAST](https://www.fast.design/docs/introduction/).
 

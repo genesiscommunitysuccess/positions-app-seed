@@ -12,7 +12,7 @@
   },
   "genx": {
     "app": {
-      "rootElement": "position-app"
+      "rootElement": "{{rootElement}}"
     },
     "federation": {
       "remotes": [
