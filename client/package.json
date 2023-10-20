@@ -1,39 +1,54 @@
 {
-  "name": "@pkgScope/pkgName",
-  "description": "Positions App",
-  "version": "0.0.1",
+  "name": "@genesiscommunitysuccess/sample-positions-app",
+  "description": "",
+  "version": "1.0.0",
   "private": true,
   "license": "UNLICENSED",
+  "config": {
+    "API_HOST": "ws://localhost/gwf/",
+    "API_HOST_DEV2": "wss://dev-position2/gwf/",
+    "PORT": 6060,
+    "ENABLE_SSO": false
+  },
+  "genx": {
+    "app": {
+      "rootElement": "position-app"
+    },
+    "federation": {
+      "remotes": [
+        "@genesislcap/foundation-zero"
+      ]
+    }
+  },
   "scripts": {
-    "baseline": "npm run clean && npm run clean:dist && npm run bootstrap:ignore-scripts && npm run copy-files:all",
-    "bootstrap": "npm run husky:install && npx --yes lerna@6.6.2 bootstrap --hoist",
-    "bootstrap:ignore-scripts": "npm run bootstrap -- --ignore-scripts",
-    "clean": "npx lerna clean -y",
-    "clean:all": "npm run clean && npm run clean:dist && npm run clean:hoisted",
-    "clean:dist": "npx lerna run clean:dist",
-    "clean:hoisted": "node ./.build/clean.js node_modules",
-    "client:web": "npm run baseline && npx lerna run --scope @pkgScope/pkgName-web-client --parallel dev",
-    "copy-files:all": "npm run copy-files:web",
-    "copy-files:web": "npx lerna run --scope @pkgScope/pkgName-web-client copy-files",
-    "dev": "npx lerna run --parallel dev",
-    "dev:webpack": "npx lerna run --parallel dev:webpack",
-    "diff": "npx lerna diff",
-    "husky:install": "cd .. && npx --yes husky install",
-    "lint": "npm run lint:eslint && npm run lint:stylelint",
-    "lint:eslint": "eslint \"./**/*.{ts,js}\"",
-    "lint:eslint:fix": "npm run lint:eslint -- --fix",
-    "lint:stylelint": "stylelint \"./**/*.styles.ts\"",
-    "lint:stylelint:fix": "npm run lint:stylelint -- --fix",
-    "list": "npx lerna ls -la",
-    "prepare": "npx lerna run prepare",
-    "publish:github": "npx lerna publish from-package --yes --no-verify-access --ignore-scripts",
-    "serve:web": "npx lerna run --scope @pkgScope/pkgName-web-client serve",
-    "start": "npx lerna run start",
-    "test": "npx lerna run test",
-    "version:major": "npx lerna version major --no-git-tag-version --no-changelog --no-commit-hooks --ignore-scripts --no-push",
-    "version:minor": "npx lerna version minor --no-git-tag-version --no-changelog --no-commit-hooks --ignore-scripts --no-push",
-    "version:patch": "npx lerna version patch --no-git-tag-version --no-changelog --no-commit-hooks --ignore-scripts --no-push",
-    "version:prerelease": "npx lerna version prerelease --no-git-tag-version --no-changelog --no-commit-hooks --ignore-scripts --no-push"
+    "baseline": "npm run clean && npm run bootstrap",
+    "bootstrap": "npm install --no-fund --no-audit",
+    "bootstrap:ci": "npm ci --no-fund --no-audit",
+    "build": "genx build -e ENABLE_SSO",
+    "build:stats": "genx analyze",
+    "clean": "genx clean dist node_modules",
+    "dev": "genx dev -e API_HOST,ENABLE_SSO",
+    "dev:dev2": "genx dev -e API_HOST=API_HOST_DEV2,ENABLE_SSO",
+    "dev:docker": "npm run dev -- --host 0.0.0.0",
+    "dev:intellij": "genx dev -e ENABLE_SSO",
+    "dev:no-open": "npm run dev -- --no-open",
+    "dev:https": "npm run dev -- --https",
+    "dev:webpack": "npm run dev -- -b webpack",
+    "dsconfig": "dsconfig --path src/styles/design-tokens.json",
+    "git:setup": "cd .. && npx --yes husky install",
+    "lint": "genx lint --profile",
+    "lint:fix": "genx lint --fix",
+    "lint:eslint": "genx lint -l eslint --profile",
+    "lint:stylelint": "genx lint -l stylelint",
+    "serve": "genx serve",
+    "test": "genx test",
+    "test:coverage": "genx test --coverage",
+    "test:unit:watch": "genx test --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "*.{ts,js}": [
@@ -43,45 +58,50 @@
       "stylelint"
     ]
   },
-  "dependencies": {
-    "tslib": "^2.3.1"
+  "eslintConfig": {
+    "extends": "@genesislcap/eslint-config"
   },
+  "stylelint": {
+    "extends": "@genesislcap/stylelint-config"
+  },
+  "prettier": "@genesislcap/prettier-config",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "csp-html-webpack-plugin": "^5.1.0",
-    "css-loader": "^6.5.1",
-    "cssnano": "^5.0.12",
-    "eslint": "^7.25.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-ts-important-stuff": "^1.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.5.0",
-    "husky": "^6.0.0",
-    "lerna": "6.6.2",
-    "lint-staged": "^10.5.4",
-    "mini-css-extract-plugin": "^2.4.5",
-    "postcss": "^8.4.3",
-    "postcss-import": "^14.0.2",
-    "postcss-loader": "^6.2.1",
-    "postcss-preset-env": "^7.0.1",
-    "rimraf": "^3.0.2",
-    "style-loader": "^3.3.1",
-    "stylelint": "^13.13.1",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^22.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0",
-    "terser-webpack-plugin": "^5.2.5",
-    "to-string-loader": "^1.2.0",
-    "ts-loader": "^9.2.6",
-    "tsconfig-paths-webpack-plugin": "^3.5.2",
-    "typescript": "^4.5.2",
-    "webpack": "^5.45.1",
-    "webpack-dev-server": "^4.13.1",
-    "webpack-merge": "^5.8.0"
+    "@genesislcap/design-system-configurator": "14.91.1",
+    "@genesislcap/foundation-testing": "14.91.1",
+    "@genesislcap/genx": "14.91.1",
+    "husky": "^7.0.4",
+    "lint-prepush": "^2.2.1",
+    "lint-staged": "^12.4.1"
+  },
+  "dependencies": {
+    "@ag-grid-enterprise/server-side-row-model": "29.2.0",
+    "@ag-grid-enterprise/core": "29.2.0",
+    "@genesislcap/foundation-comms": "14.91.1",
+    "@genesislcap/foundation-criteria": "14.91.1",
+    "@genesislcap/foundation-entity-management": "14.91.1",
+    "@genesislcap/foundation-errors": "14.91.1",
+    "@genesislcap/foundation-events": "14.91.1",
+    "@genesislcap/foundation-forms": "14.91.1",
+    "@genesislcap/foundation-header": "14.91.1",
+    "@genesislcap/foundation-inbox": "14.91.1",
+    "@genesislcap/foundation-layout": "14.91.1",
+    "@genesislcap/foundation-login": "14.91.1",
+    "@genesislcap/foundation-notification-dashboard": "14.91.1",
+    "@genesislcap/foundation-notifications": "14.91.1",
+    "@genesislcap/foundation-reporting": "14.91.1",
+    "@genesislcap/foundation-store": "14.91.1",
+    "@genesislcap/foundation-ui": "14.91.1",
+    "@genesislcap/foundation-utils": "14.91.1",
+    "@genesislcap/foundation-zero": "14.91.1",
+    "@genesislcap/foundation-zero-grid-pro": "14.91.1",
+    "@genesislcap/g2plot-chart": "14.91.1",
+    "@genesislcap/grid-pro": "14.91.1",
+    "@microsoft/fast-components": "^2.21.6",
+    "@microsoft/fast-element": "^1.7.0",
+    "@microsoft/fast-foundation": "^2.33.4",
+    "@microsoft/fast-router": "^0.4.2",
+    "@microsoft/fast-web-utilities": "^5.1.0",
+    "rxjs": "^7.5.4",
+    "tslib": "^2.3.1"
   }
 }

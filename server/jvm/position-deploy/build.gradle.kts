@@ -91,7 +91,7 @@ dependencies {
   genesisServer(project(":position-site-specific", "distribution"))
 
   if (project.ext["skipWeb"] != "true") {
-    genesisWeb("client:web")
+    genesisWeb(":client")
   }
 
   api(project(":position-distribution", "distribution"))
