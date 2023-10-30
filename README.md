@@ -11,8 +11,13 @@ accessibility checks.
 To quickly test this seed, run:
 
 ```
-npx -y @genesislcap/genx@latest init positionsapp -x --ref v1.3.0 --no-shell && \
-npx -y @genesislcap/genx@latest add positionsapp -s positions-app-seed && \
+npx -y @genesislcap/genx@latest init myapp -x --ref v1.3.0 --no-shell && \
+npx -y @genesislcap/genx@latest add myapp -s positions-app-seed
+```
+
+To test that it compiles:
+
+```
 ./gradlew assemble
 ```
 
