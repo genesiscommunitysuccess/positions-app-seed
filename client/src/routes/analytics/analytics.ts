@@ -2,10 +2,8 @@ import { customElement, FASTElement, observable } from '@microsoft/fast-element'
 import { AnalyticsTemplate as template } from './analytics.template';
 import { AnalyticsStyles as styles } from './analytics.styles';
 
-const name = 'reports-route';
-
 @customElement({
-  name,
+  name: 'reports-route',
   template,
   styles,
 })

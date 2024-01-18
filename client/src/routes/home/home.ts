@@ -9,11 +9,9 @@ import { HomeTemplate as template } from './home.template';
 import { FoundationLayout } from '@genesislcap/foundation-layout';
 import { HOME_PREDEFINED_LAYOUT } from './predefined-layouts';
 
-const name = 'home-route';
-
 export type EventMap = StoreEventDetailMap;
 @customElement({
-  name,
+  name: 'home-route',
   template,
   styles,
 })
@@ -38,7 +36,7 @@ export class Home extends EventEmitter<EventMap>(FASTElement) {
   public connectedCallback() {
     super.connectedCallback();
 
-    logger.debug(`${name} is now connected to the DOM`);
+    logger.debug(`home-route is now connected to the DOM`);
 
     this.store.binding('sideNavClosed', (closed) => {
       this.editModalVisibleChanged(closed);

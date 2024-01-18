@@ -22,8 +22,6 @@ import { HostENV, HostURL } from '../types';
 import { Store, StoreEventDetailMap } from '../store';
 import { logger } from '../utils';
 
-const name = '{{rootElement}}';
-
 export type EventMap = StoreEventDetailMap;
 
 // eslint-disable-next-line
@@ -33,7 +31,7 @@ const hostEnv = location.host;
 const hostUrl = API_HOST || `wss://${hostEnv}/gwf/`;
 
 @customElement({
-  name,
+  name: '{{rootElement}}',
   template,
   styles,
 })
@@ -51,7 +49,7 @@ export class MainApplication extends EventEmitter<EventMap>(FASTElement) {
   public async connectedCallback() {
     super.connectedCallback();
 
-    logger.debug(`${name} is now connected to the DOM`);
+    logger.debug(`'{{rootElement}}' is now connected to the DOM`);
 
     this.registerDIDependencies();
     await this.loadRemotes();
